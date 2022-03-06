@@ -45,7 +45,7 @@ namespace FileMover.Services
                     await FileTransferDataAccess.SaveFileTransferAsync(entity);
                 }
 
-                var extension = Path.GetExtension(a);
+                var extension = Path.GetExtension(a).ToUpperInvariant();
                 var collection = new BlockingCollection<FileTransfer>(new ConcurrentQueue<FileTransfer>());
 
                 if (FileTransferDictionary.TryAdd(extension, collection))
