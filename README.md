@@ -76,3 +76,5 @@ The console application itself, takes not arguments, it is only the `transfer` c
 3) There could be more commands for the tracking of files which have already been moved. At the moment while files completed in previous sessions are stored in the DB there is no way to retrieve them via the application.
 
 4) Add other forms of storage. For example an option to use SQL Server rather than Sqlite might make the application more fleixble and improve performance. NoSql storage could also be considered as the data is not currently relational - there is only one table currently.
+
+5) Add some form of structured logging (such as Serilog) which could be used to quickly identify issues with the project should they occur.

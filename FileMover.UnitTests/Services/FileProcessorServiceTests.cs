@@ -40,6 +40,7 @@ namespace FileMover.UnitTests.Services
 
             var extensions = files.Select(a => Path.GetExtension(a)).Distinct();
 
+            _mockQueueProcessorFactory.Verify(a => a.CreateQueueProcessor(), Times.Exactly(extensions.Count()));
             _mockTaskFactory.Verify(a => a.CreateAndStartTask(It.IsAny<Action>(), TaskCreationOptions.LongRunning), Times.Exactly(extensions.Count()));
         }
 
@@ -56,10 +57,10 @@ namespace FileMover.UnitTests.Services
             _mockIdGenerator.Verify(a => a.GenerateId(), Times.Never);
             _mockClock.Verify(a => a.UtcNow, Times.Once);
             _mockFileTransferDataAccess.Verify(a => a.SaveFileTransferAsync(It.IsAny<FileTransfer>()), Times.Never);
-
+            
+            _mockQueueProcessorFactory.Verify(a => a.CreateQueueProcessor(), Times.Once);
             _mockTaskFactory.Verify(a => a.CreateAndStartTask(It.IsAny<Action>(), TaskCreationOptions.LongRunning), Times.Once);
         }
-
 
         private FileProcessorService GetSystemUnderTest()
         {
